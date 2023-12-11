@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            color: #3498db;
+            padding: 10px 0;
+            text-align: center;
+            font-size: larger;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #008000;
+            font-weight: bold;
+        }
+        .button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .action-icons {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .edit-icon {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .delete-icon {
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        /* Alternate row colors */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Contact Management</h1>
+    </div>
+    <div class="container">
+        <a href="{% url 'Contacts:contact_create' %}" class="button">Create a New Contact</a>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Contact Name</th>
+                    <th>Email</th>
+                    <th>Created Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for contact in object_list %}
+                        <tr>
+                            <td>
+                                <div class="action-icons">
+                                    <a href="{% url 'Contacts:contact_detail' pk=contact.pk %}" title="View Details"><i class="fas fa-edit edit-icon"></i></a>
+                                    <a href="{% url 'Contacts:contact_delete' pk=contact.pk %}" title="Delete"><i class="fas fa-trash delete-icon"></i></a>
+                                </div>
+                            </td>
+                            <td>{{ contact.name }}</td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.created_at|date:"M. d, Y, g:i a" }}</td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        Copyright © Deepak Deokar
+    </div>
+</body>
+</html>
+
+
